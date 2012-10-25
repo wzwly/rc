@@ -1,0 +1,3 @@
+
+aux_source_directory(. SRC_DIR)
+message(souce file ${SRC_DIR})

@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+.././sefafx.h
+stdio.h
+-
+assert.h
+-
+limits.h
+-
+
+/home/tt/workspace/StripChart/./Core/CoreHead.h
+FileIndex.h
+/home/tt/workspace/StripChart/./Core/FileIndex.h
+
+/home/tt/workspace/StripChart/./Core/FileIndex.h
+vector
+-
+sefafx.h
+/home/tt/workspace/StripChart/./Core/sefafx.h
+
+/home/tt/workspace/StripChart/Core/FileIndex.cpp
+FileIndex.h
+/home/tt/workspace/StripChart/Core/FileIndex.h
+
+/home/tt/workspace/StripChart/Core/FileIndex.h
+vector
+-
+sefafx.h
+/home/tt/workspace/StripChart/Core/sefafx.h
+
+/home/tt/workspace/StripChart/main.cpp
+iostream
+-
+./Core/CoreHead.h
+/home/tt/workspace/StripChart/./Core/CoreHead.h
+

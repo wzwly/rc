@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/stripchart.dir/main.o CMakeFiles/stripchart.dir/sefafx.o CMakeFiles/stripchart.dir/Core/FileIndex.o  -o stripchart -rdynamic 
