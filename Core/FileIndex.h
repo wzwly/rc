@@ -63,36 +63,29 @@ public:
         int m_nPosIndex;
         int m_nFilePos;
     };
-    CGCodeFile() {};
-    ~CGCodeFile() {};
+    CGCodeFile() ;
+    ~CGCodeFile();
 
 
 public:
     bool OnpenGFile(const char* pszPath_);
     void ReadFilePos(int nPos_, char& szChar_);
 
-    const char* GetBuffer()const {
-        return m_pBuffer;
-    }
-
+    const char* GetBuffer()const {return m_pBuffer;}
+    bool GetInt(int nStartPos_, int& nRet_);
+    bool GetLineNoByFilePos(long nPos_, int& nLineNo_, int& nSegNo_);
+    long int GetSize() { return m_nSize;}
 
 private:
-    bool CloseGfile() {
-        ;
-    }
-    void ReloadFileData(int nPos_);
+    bool CloseGfile();
+    
+   
 public:
-    int m_nSize;
     CIntArray* m_pArrayIndex;
-    vector<IndexItem*> m_SubIndex;
 private:
     char* m_pBuffer;
     HANDLE m_hFile;
-    HANDLE  m_hMapping;
-    bool m_bUseFileMap;
-    FILE_POS m_StartPos;
-    FILE_POS m_EndPos;
-
+    long int m_nSize;
 };
 
 //
@@ -106,8 +99,14 @@ public:
 public:
     bool Create(const char* pszPath_);
 private:
+    void DestroySegIndex();
+public:
+    CGCodeFile m_GCodeFile;
+private:
     CIntArray m_arrayIndex;
+    vector<IndexItem*> m_SegIndex;
     char m_szFileName[PATH_MAX];
+    int  m_nDateLength;
 };
 
 

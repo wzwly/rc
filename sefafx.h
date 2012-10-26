@@ -18,6 +18,7 @@
   #include<sys/stat.h>
   #include<unistd.h>
   #include<sys/mman.h>
+  #include<ctype.h>
 
   typedef int HANDLE; 
   #define INVALID_HANDLE_VALUE -1
@@ -37,8 +38,8 @@
 
 namespace SefAxf
 {
-  int GetFileSize(const char* pszPath_);
-  int GetFileSize(int fd_);
+  long int GetFileSize(const char* pszPath_);
+  long int GetFileSize(int fd_);
 };
 
 
