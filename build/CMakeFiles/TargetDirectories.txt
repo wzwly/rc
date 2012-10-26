@@ -1,2 +1,0 @@
-/home/tt/workspace/StripChart/build/CMakeFiles/stripchart.dir
-/home/tt/workspace/StripChart/build/CMakeFiles/stripchart_gch.dir
