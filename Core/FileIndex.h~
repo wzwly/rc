@@ -16,18 +16,17 @@ struct IndexItem
     LABEL_O,
     LABEL_INVALID,
   };
-  LbType iLbType; //ç¨‹åºæ®µç±»å‹
-  int	iLbNo;    //ç¨‹åºæ®µå·
-  int  	iLbCount; //æ®µè®¡æ•°
-  int	iFpStart; //æ–‡ä»¶æŒ‡é’ˆä½ç½®
+  LbType iLbType; //³ÌĞò¶ÎÀà
+  int	iLbNo;    //³ÌĞò¶ÎºÅ
+  int  	iLbCount; //¶ÎºÅ¼ÆÊı  
+  int	iFpStart; //ÎÄ¼şÖ¸ÕëÎ»ÖÃ
   IndexItem(LbType type_, int no_, int count_, int fpStart_)
   {
     iLbType = type_; iLbNo = no_;
     iLbCount = count_; iFpStart = fpStart_;
   }
 };
-
-//ä¿å­˜Machiningæ–‡ä»¶ä¸­æ¯ä¸€è¡Œæ–‡ä»¶çš„èµ·å§‹å’Œç»“æŸä½ç½®
+//±£´æÎÄ¼şµÄĞĞºÅ¶ÔÓ¦µÄÎ»ÖÃ
 class CIntArray
 {
 public:
@@ -52,7 +51,7 @@ class CGCodeFile
 public:
   enum 
   {
-    BUFFER_SIZE = 12288,//ç¼“å­˜
+    BUFFER_SIZE = 12288,//»º´æ´óĞ¡
     MAX_LOAD_FILE_SIZE = 20000000,//22M file
   };
   struct FILE_POS
@@ -66,14 +65,24 @@ public:
   
 public:
     bool OnpenGFile(const char* pszPath_);
+    void ReadFilePos(int nPos_, char& szChar_);
+    void ReloadFileData(int nPos_);
+    const char* GetBuffer()const {return m_pBuffer;}  
+
+
+private:
+     bool CloseGfile(){;}
 public:
     int m_nSize;
     CIntArray* m_pArrayIndex;
-    vector<IndexItem*, IndexItem*> m_SubIndex;
+    vector<IndexItem*> m_SubIndex;
 private:
    char* m_pBuffer;
    HANDLE m_hFile;
    HANDLE  m_hMapping;
+   bool m_bUseFileMap;
+   FILE_POS m_StartPos;
+   FILE_POS m_EndPos;
     
 };
 

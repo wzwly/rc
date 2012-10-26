@@ -1,6 +1,5 @@
 # 创建预编译头
-# Target是用来生成预编译头的项目Target；PrecompiledHeader和PrecompiledSource分别是头文件的路径
-
+# Target是用来生成预编译头的项目Target；PrecompiledHeader和PrecompiledSource分别是头文件的路径1�7  
 MACRO(ADD_PRECOMPILED_HEADER Target PrecompiledHeader PrecompiledSource)
  
 IF(MSVC)
@@ -14,7 +13,7 @@ ENDIF(CMAKE_COMPILER_IS_GNUCXX)
 
 ENDMACRO(ADD_PRECOMPILED_HEADER)
  
-# 在生成一个预编译头以后就可以调用这个宏来指定源文件来使用它
+# 在生成一个预编译头以后就可以调用这个宏来指定源文件来使用宄1�7 
 # SourcesVar是一个包含了要使用该预编译头的源文件列表
 MACRO(USE_PRECOMPILED_HEADER SourcesVar)
   IF(MSVC)
@@ -26,12 +25,12 @@ MACRO(USE_PRECOMPILED_HEADER SourcesVar)
   ENDIF()
 ENDMACRO(USE_PRECOMPILED_HEADER)
  
-# 用于为visual studio生成pch
+# 用于为visual studio生成pch 
 MACRO(ADD_MSVC_PRECOMPILED_HEADER PrecompiledHeader PrecompiledSource)
   GET_FILENAME_COMPONENT(PrecompiledBasename
     ${PrecompiledHeader} NAME_WE)
  
-  # 得到pch文件的文件名
+  # 得到pch文件的文件名 
   SET(PrecompiledBinary
     "${CMAKE_CURRENT_BINARY_DIR}/${PrecompiledBasename}.pch")
  
@@ -42,7 +41,7 @@ MACRO(ADD_MSVC_PRECOMPILED_HEADER PrecompiledHeader PrecompiledSource)
     ${CMAKE_CURRENT_SOURCE_DIR}/${PrecompiledHeader}
     CACHE INTERNAL "the path of the precompiled header")
  
-  # 为visual studio设置用于生成pch的编译器参数
+  # 为visual studio设置用于生成pch的编译器参数 
   SET_SOURCE_FILES_PROPERTIES(
     ${PrecompiledSource}
     PROPERTIES COMPILE_FLAGS
@@ -57,14 +56,14 @@ MACRO(USE_MSVC_PRECOMPILED_HEADER SourcesVar)
  
   set(PrecompiledBinary ${PCH_BIN_PATH})
  
-  # 对需要使用pch的源文件设置编译器参数
-  SET_SOURCE_FILES_PROPERTIES(${Sources}
+  # 对需要使用pch的源文件设置编译器参敄1�7
+    SET_SOURCE_FILES_PROPERTIES(${Sources}
     PROPERTIES COMPILE_FLAGS
     "/Yu\"${PrecompiledBinary}\" /FI\"${PrecompiledBinary}\" /Fp\"${PrecompiledBinary}\""
     OBJECT_DEPENDS "${PrecompiledBinary}")
 ENDMACRO(USE_MSVC_PRECOMPILED_HEADER)
  
-# 改函数用于判断gcc是否支持预编译头
+# 改函数用于判断gcc是否支持预编译头 
 IF(CMAKE_COMPILER_IS_GNUCXX)
   EXEC_PROGRAM(
     ${CMAKE_CXX_COMPILER}
@@ -115,15 +114,15 @@ MACRO(ADD_GCC_PRECOMPILED_HEADER TargetName PrecompileHeader)
     LIST(APPEND _compile_FLAGS "-DQT_DEBUG")
   ENDIF()
  
-  # 自动创建文件夹
-  ADD_CUSTOM_COMMAND(
+  # 自动创建文件处1�7  
+    ADD_CUSTOM_COMMAND(
     OUTPUT ${_outdir}
     COMMAND mkdir ${_outdir} # TODO: {CMAKE_COMMAND} -E ...
     )
  
   GET_DIRECTORY_PROPERTY(_directory_flags INCLUDE_DIRECTORIES)
  
-  # 确保生成预编译头的文件夹在所有包含目录的最前面
+  # 确保生成预编译头的文件夹在所有包含目录的朄1�7前面
   SET(_CMAKE_CURRENT_BINARY_DIR_included_before_path FALSE)
   FOREACH(item ${_directory_flags})
     IF(${item}  STREQUAL ${_path} AND NOT
@@ -162,8 +161,8 @@ MACRO(ADD_GCC_PRECOMPILED_HEADER TargetName PrecompileHeader)
   #MESSAGE("command : ${CMAKE_COMMAND} -E copy  ${_input}
   #  ${CMAKE_CURRENT_BINARY_DIR}/${_name}")
  
-  # 添加用于生成预编译头的命令
-  ADD_CUSTOM_COMMAND(
+  # 添加用于生成预编译头的命仄1�7  
+    ADD_CUSTOM_COMMAND(
     OUTPUT ${_output}
     COMMAND ${CMAKE_CXX_COMPILER}
     ${_compile_FLAGS}

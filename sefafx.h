@@ -3,18 +3,24 @@
 
 #include <stdio.h>
 #include <assert.h>
-#include <limits.h>
-//window
+#include <cstdlib>
+
 
 #if (MSVC)
-
+  //window
 
 #else
+  //linux 
+  #include <sys/types.h>
+  #include <sys/stat.h>
+  #include <fcntl.h>
+  #include <limits.h>
+  #include<sys/stat.h>
+  #include<unistd.h>
+  #include<sys/mman.h>
 
-//linux 
-
-typedef int HANDLE; 
-#define INVALID_HANDLE_VALUE -1
+  typedef int HANDLE; 
+  #define INVALID_HANDLE_VALUE -1
 
 #endif
 
@@ -29,6 +35,11 @@ typedef int HANDLE;
 
 #endif
 
+namespace SefAxf
+{
+  int GetFileSize(const char* pszPath_);
+  int GetFileSize(int fd_);
+};
 
 
 
