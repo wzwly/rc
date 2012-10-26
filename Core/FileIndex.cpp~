@@ -68,7 +68,7 @@ bool CIntArray::CreateArray(int nSize_)
 
 
 
-//æ‰“å¼€æ–‡ä»¶ æ–‡ä»¶æŒ‡é’ˆm_pBufer
+//½«ÎÄ¼þ¶ÁÈëµ½m_pBufer
 bool CGCodeFile::OnpenGFile(const char* pszPath_)
 {
   assert(pszPath_ != NULL);
@@ -89,7 +89,7 @@ bool CGCodeFile::OnpenGFile(const char* pszPath_)
   
   if (m_nSize > MAX_LOAD_FILE_SIZE)
   {
-    //ç›´æŽ¥è¯»å…¥åˆ°å†…å­˜
+    //Ö±½Ó¶ÁÈ¡µ½ÄÚ´æ  
     m_pBuffer = (char*)malloc(m_nSize);
     if (m_pBuffer == NULL)
        goto __finally;
@@ -111,7 +111,7 @@ bool CGCodeFile::OnpenGFile(const char* pszPath_)
   }
   else
   {
-     //é‡‡ç”¨æ–‡ä»¶æ˜ å°„
+     //ÄÚ´æÓ³Éä
      m_pBuffer = (char*)mmap(NULL,m_nSize + 2, PROT_READ,MAP_SHARED,m_hFile,0);
      m_bUseFileMap = true;
   }
@@ -153,13 +153,19 @@ void CGCodeFile::ReadFilePos(int nPos_, char& szChar_)
     assert(nPos_ <= m_nSize);
     if (nPos_ == m_nSize)
     {  szChar_ = EOF; return;}
+    
   
   }
   else if(nPos_ < m_StartPos.m_nFilePos)
   {
-    
+    ReloadFileData(nPos_);
     goto __read_repeat;
   }
+}
+
+void CGCodeFile::ReloadFileData(int nPos_)
+{
+
 }
 
 //===============================================
