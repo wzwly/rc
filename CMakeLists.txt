@@ -189,6 +189,7 @@ include_directories(./ )
 
 ADD_EXECUTABLE(stripchart ${SRC_DIR} ${SUB_SRC_DIR})
 
+
 ADD_PRECOMPILED_HEADER(stripchart sefafx.h  sefafx.cpp)
 
 USE_PRECOMPILED_HEADER(SRC_DIR SUB_SRC_DIR)

@@ -100,13 +100,23 @@ public:
     bool Create(const char* pszPath_);
 private:
     void DestroySegIndex();
+    void ResetData();
 public:
     CGCodeFile m_GCodeFile;
+    
 private:
     CIntArray m_arrayIndex;
     vector<IndexItem*> m_SegIndex;
     char m_szFileName[PATH_MAX];
     int  m_nDateLength;
+    int  m_nTotalLines;
+    int  m_nMaxLineLength;
+    int  m_nCurLine;
+    long int m_nCurpos;
+    
+    char* m_pLastAccessLine;
+    int	m_nLastAccessLineNo;
+    int m_nLastAccessLineLen;
 };
 
 

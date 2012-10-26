@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <cstdlib>
-
+#include <cstring>
 
 #if (MSVC)
   //window
@@ -28,7 +28,7 @@
 
 #if (CMAKE_BUILD_TYPE == Debug)
 
-#define TRACE(a) printf(a)
+#define TRACE  printf
 
 #else
 

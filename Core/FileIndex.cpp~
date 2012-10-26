@@ -222,7 +222,78 @@ bool CFileIndex::Create(const char* pszPath_)
    if (!m_GCodeFile.OnpenGFile(pszPath_)) 
      return false;
    DestroySegIndex();
-   m_nDateLength = m_GCodeFile.m_nSize;
+   m_nDateLength = m_GCodeFile.GetSize();
+   
+   strncpy(m_szFileName, pszPath_, sizeof(m_szFileName));
+   m_nTotalLines = 0;
+   m_nMaxLineLength = -1;
+   
+   IndexItem::LbType _lbType = IndexItem::LABEL_INVALID;
+   int _nLabNo = 0, _nLbCount = 0, _nFp = 0;
+   int _nLineStartpos = 0, _nOldLines = -1;
+   int _nFilePos = 0, _nPreFilePos = 0;
+   char _szChar;
+   long int _nLeftSize = m_nDateLength;
+   
+   m_GCodeFile.ReadFilePos(_nFilePos++, _szChar);
+   
+   while(_nLeftSize)
+   {
+      if (m_nTotalLines != _nOldLines)
+      {
+	  m_arrayIndex.AddPos(_nLineStartpos);
+	  _nOldLines = m_nTotalLines;
+      }
+      while(_szChar != '\n')
+      {
+	  if (_szChar == 'O' || _szChar == 'o')
+	  {
+	      _lbType = IndexItem::LABEL_O;
+	      if (!m_GCodeFile.GetInt(_nFilePos, _nLabNo))
+		_lbType = IndexItem::LABEL_INVALID;
+	      m_SegIndex.push_back(new IndexItem(_lbType, _nLabNo, _nLbCount, _nFp));
+	  }
+	  m_GCodeFile.ReadFilePos(_nFilePos++, _szChar);
+	  if (_nFilePos > m_nDateLength)
+	  {
+	    _nFilePos = -1;
+	    break;
+	  }
+	  _nFp = _nFilePos;
+	  if (_nFilePos > 0)
+	  {
+	    _nLineStartpos = _nFilePos;
+	    m_GCodeFile.ReadFilePos(_nFilePos, _szChar);
+	    if (_nFilePos - _nPreFilePos > m_nMaxLineLength)
+	      m_nMaxLineLength = _nFilePos - _nPreFilePos;
+	    
+	    _nLeftSize = m_nDateLength - _nFilePos;
+	    ++_nFilePos;
+	    if (m_nTotalLines % 10000 == 0)
+	    {
+		//更新进度条
+	    }
+	  }
+	  else
+	  {
+	      if (_nFilePos == 0)
+	      {
+		m_GCodeFile.ReadFilePos(_nFilePos++, _szChar);
+	      }
+	      else
+	      {
+		m_nTotalLines++;
+		break;
+	      }
+	  }
+      }
+   }
+   
+   if (m_GCodeFile.m_pArrayIndex == NULL)
+     m_GCodeFile.m_pArrayIndex = &m_arrayIndex;
+   
+   TRACE("total line %d \n", m_nTotalLines);
+   
 }
 
 void CFileIndex::DestroySegIndex()
