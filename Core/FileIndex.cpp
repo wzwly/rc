@@ -65,6 +65,12 @@ bool CIntArray::CreateArray(int nSize_)
 }
 //==============================================
 
+bool CGCodeFile::OnpenGFile(const char* pszPath_)
+{
+  assert(pszPath_ != NULL);
+  
+}
+
 //===============================================
 CFileIndex::CFileIndex()
 {
