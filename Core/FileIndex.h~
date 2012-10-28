@@ -70,14 +70,14 @@ public:
 public:
     bool OnpenGFile(const char* pszPath_);
     void ReadFilePos(int nPos_, char& szChar_);
-
+    bool CloseGfile();
     const char* GetBuffer()const {return m_pBuffer;}
     bool GetInt(int nStartPos_, int& nRet_);
     bool GetLineNoByFilePos(long nPos_, int& nLineNo_, int& nSegNo_);
     long int GetSize() { return m_nSize;}
 
 private:
-    bool CloseGfile();
+  
     
    
 public:
@@ -98,6 +98,7 @@ public:
 
 public:
     bool Create(const char* pszPath_);
+    void Destroy();
 private:
     void DestroySegIndex();
     void ResetData();

@@ -270,6 +270,8 @@ bool CFileIndex::Create(const char* pszPath_)
 	    
 	    _nLeftSize = m_nDateLength - _nFilePos;
 	    ++_nFilePos;
+	    ++m_nTotalLines;
+	    _nPreFilePos = _nFilePos;
 	    if (m_nTotalLines % 10000 == 0)
 	    {
 		//更新进度条
@@ -298,5 +300,26 @@ bool CFileIndex::Create(const char* pszPath_)
 
 void CFileIndex::DestroySegIndex()
 {
+  for (int _i = 0; _i < m_SegIndex.size(); _i++)
+    delete m_SegIndex[_i];
+  
+  m_SegIndex.clear();
+}
 
+void CFileIndex::Destroy()
+{
+  
+  m_arrayIndex.Reset();
+  DestroySegIndex();
+  m_GCodeFile.CloseGfile();
+  ResetData();
+}
+
+void CFileIndex::ResetData()
+{
+    m_nDateLength = 0;
+    m_szFileName[0] = '\0';
+    m_nCurLine = -1;
+    m_nCurpos = 0;
+    m_nTotalLines = 0;
 }

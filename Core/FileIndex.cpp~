@@ -258,10 +258,11 @@ bool CFileIndex::Create(const char* pszPath_)
 	  {
 	    _nFilePos = -1;
 	    break;
-	  }
-	  _nFp = _nFilePos;
-	  if (_nFilePos > 0)
-	  {
+	  }	
+      }
+       _nFp = _nFilePos;
+      if (_nFilePos > 0)
+      {
 	    _nLineStartpos = _nFilePos;
 	    m_GCodeFile.ReadFilePos(_nFilePos, _szChar);
 	    if (_nFilePos - _nPreFilePos > m_nMaxLineLength)
@@ -269,13 +270,15 @@ bool CFileIndex::Create(const char* pszPath_)
 	    
 	    _nLeftSize = m_nDateLength - _nFilePos;
 	    ++_nFilePos;
+	    ++m_nTotalLines;
+	    _nPreFilePos = _nFilePos;
 	    if (m_nTotalLines % 10000 == 0)
 	    {
 		//更新进度条
 	    }
-	  }
-	  else
-	  {
+      }
+      else
+      {
 	      if (_nFilePos == 0)
 	      {
 		m_GCodeFile.ReadFilePos(_nFilePos++, _szChar);
@@ -285,7 +288,6 @@ bool CFileIndex::Create(const char* pszPath_)
 		m_nTotalLines++;
 		break;
 	      }
-	  }
       }
    }
    
@@ -298,5 +300,18 @@ bool CFileIndex::Create(const char* pszPath_)
 
 void CFileIndex::DestroySegIndex()
 {
+  for (int _i = 0; _i < m_SegIndex.size(); _i++)
+    delete m_SegIndex[_i];
+  
+  m_SegIndex.clear();
+}
 
+void CFileIndex::Destroy()
+{
+  m_szFileName[0] = '\0';
+  m_arrayIndex.Reset();
+  DestroySegIndex();
+  m_nDateLength = 0;
+  m_GCodeFile.CloseGfile();
+  ResetData();
 }

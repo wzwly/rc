@@ -70,16 +70,20 @@ public:
 public:
     bool OnpenGFile(const char* pszPath_);
     void ReadFilePos(int nPos_, char& szChar_);
-
-    const char* GetBuffer()const {return m_pBuffer;}
+    bool CloseGfile();
+    const char* GetBuffer()const {
+        return m_pBuffer;
+    }
     bool GetInt(int nStartPos_, int& nRet_);
     bool GetLineNoByFilePos(long nPos_, int& nLineNo_, int& nSegNo_);
-    long int GetSize() { return m_nSize;}
+    long int GetSize() {
+        return m_nSize;
+    }
 
 private:
-    bool CloseGfile();
-    
-   
+
+
+
 public:
     CIntArray* m_pArrayIndex;
 private:
@@ -98,12 +102,14 @@ public:
 
 public:
     bool Create(const char* pszPath_);
+    void Destroy();
 private:
     void DestroySegIndex();
+  
     void ResetData();
 public:
     CGCodeFile m_GCodeFile;
-    
+
 private:
     CIntArray m_arrayIndex;
     vector<IndexItem*> m_SegIndex;
@@ -113,7 +119,7 @@ private:
     int  m_nMaxLineLength;
     int  m_nCurLine;
     long int m_nCurpos;
-    
+
     char* m_pLastAccessLine;
     int	m_nLastAccessLineNo;
     int m_nLastAccessLineLen;
