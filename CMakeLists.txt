@@ -183,11 +183,11 @@ ENDMACRO(ADD_GCC_PRECOMPILED_HEADER)
 PROJECT(stripchart)
 
 aux_source_directory(. SRC_DIR)
-aux_source_directory(./Core/ SUB_SRC_DIR)
+#aux_source_directory(./Core/ SUB_SRC_DIR)
 
-include_directories(./ )
+include_directories(./)
 
-ADD_EXECUTABLE(stripchart ${SRC_DIR} ${SUB_SRC_DIR})
+ADD_EXECUTABLE(stripchart ${SRC_DIR})
 
 
 ADD_PRECOMPILED_HEADER(stripchart sefafx.h  sefafx.cpp)

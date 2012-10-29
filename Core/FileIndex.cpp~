@@ -308,10 +308,18 @@ void CFileIndex::DestroySegIndex()
 
 void CFileIndex::Destroy()
 {
-  m_szFileName[0] = '\0';
+  
   m_arrayIndex.Reset();
   DestroySegIndex();
-  m_nDateLength = 0;
   m_GCodeFile.CloseGfile();
   ResetData();
+}
+
+void CFileIndex::ResetData()
+{
+    m_nDateLength = 0;
+    m_szFileName[0] = '\0';
+    m_nCurLine = -1;
+    m_nCurpos = 0;
+    m_nTotalLines = 0;
 }
